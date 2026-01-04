@@ -1,267 +1,269 @@
 --[[
-    AUTHOR: [ilovedog(hieuzed05]
+    AUTHOR: [ilovedog(hieuzed05)]
+    UI STYLE: WIND UI (Modern Glass)
     GAME: Forsaken
-    FEATURES: Loading 0-100%, Multi-Tabs, Auto-Copy, Theme Changer, UI Elements
 ]]
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "skibidihub-beta"
+ScreenGui.Name = "WindUI_Forsaken"
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ResetOnSpawn = false
 
--- ================= HỆ THỐNG MÀU SẮC (THEME) =================
-local Themes = {
-    ["Black"] = {Bg = Color3.fromRGB(20, 20, 20), Text = Color3.fromRGB(255, 255, 255), Accent = Color3.fromRGB(0, 120, 255), Panel = Color3.fromRGB(30, 30, 30)},
-    ["White"] = {Bg = Color3.fromRGB(240, 240, 240), Text = Color3.fromRGB(30, 30, 30), Accent = Color3.fromRGB(0, 80, 200), Panel = Color3.fromRGB(210, 210, 210)},
-    ["Blue"] = {Bg = Color3.fromRGB(0, 30, 60), Text = Color3.fromRGB(255, 255, 255), Accent = Color3.fromRGB(0, 200, 255), Panel = Color3.fromRGB(0, 50, 90)},
-    ["Green"] = {Bg = Color3.fromRGB(10, 40, 10), Text = Color3.fromRGB(255, 255, 255), Accent = Color3.fromRGB(0, 255, 100), Panel = Color3.fromRGB(20, 60, 20)}
+local TweenService = game:GetService("TweenService")
+
+-- ================= THEME & COLORS =================
+local Theme = {
+    Main = Color3.fromRGB(15, 15, 15),
+    Secondary = Color3.fromRGB(25, 25, 25),
+    Accent = Color3.fromRGB(0, 150, 255), -- Blue
+    Text = Color3.fromRGB(255, 255, 255),
+    White = Color3.fromRGB(255, 255, 255),
+    Green = Color3.fromRGB(0, 255, 120),
 }
 
-local CurrentTheme = Themes.Black
-
--- ================= LOADING SCREEN (0% - 100%) =================
+-- ================= LOADING SCREEN =================
 local LoadingFrame = Instance.new("Frame")
-LoadingFrame.Size = UDim2.new(0, 300, 0, 120)
-LoadingFrame.Position = UDim2.new(0.5, -150, 0.5, -60)
-LoadingFrame.BackgroundColor3 = Themes.Black.Bg
+LoadingFrame.Size = UDim2.new(0, 250, 0, 80)
+LoadingFrame.Position = UDim2.new(0.5, -125, 0.5, -40)
+LoadingFrame.BackgroundColor3 = Theme.Main
 LoadingFrame.Parent = ScreenGui
-Instance.new("UICorner", LoadingFrame)
+Instance.new("UICorner", LoadingFrame).CornerRadius = UDim.new(0, 12)
 
 local LoadTitle = Instance.new("TextLabel")
 LoadTitle.Size = UDim2.new(1, 0, 0, 40)
-LoadTitle.Text = "FORSAKEN LOADING..."
-LoadTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+LoadTitle.Text = "script LOADING"
+LoadTitle.TextColor3 = Theme.Text
 LoadTitle.BackgroundTransparency = 1
-LoadTitle.Font = Enum.Font.SourceSansBold
-LoadTitle.TextSize = 20
+LoadTitle.Font = Enum.Font.GothamBold
+LoadTitle.TextSize = 14
 LoadTitle.Parent = LoadingFrame
 
-local BarBg = Instance.new("Frame")
-BarBg.Size = UDim2.new(0.8, 0, 0, 8)
-BarBg.Position = UDim2.new(0.1, 0, 0.6, 0)
-BarBg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-BarBg.Parent = LoadingFrame
-Instance.new("UICorner", BarBg)
-
-local BarFill = Instance.new("Frame")
-BarFill.Size = UDim2.new(0, 0, 1, 0)
-BarFill.BackgroundColor3 = Themes.Black.Accent
-BarFill.Parent = BarBg
-Instance.new("UICorner", BarFill)
-
-local Perc = Instance.new("TextLabel")
-Perc.Size = UDim2.new(1, 0, 0, 20)
-Perc.Position = UDim2.new(0, 0, 0.8, 0)
-Perc.Text = "0%"
-Perc.TextColor3 = Color3.fromRGB(255, 255, 255)
-Perc.BackgroundTransparency = 1
-Perc.Parent = LoadingFrame
+local LoadBar = Instance.new("Frame")
+LoadBar.Size = UDim2.new(0, 0, 0, 4)
+LoadBar.Position = UDim2.new(0.1, 0, 0.7, 0)
+LoadBar.BackgroundColor3 = Theme.Accent
+LoadBar.Parent = LoadingFrame
+Instance.new("UICorner", LoadBar)
 
 task.spawn(function()
-    for i = 0, 100, 2 do
-        BarFill.Size = UDim2.new(i/100, 0, 1, 0)
-        Perc.Text = i .. "%"
-        task.wait(0.04)
+    for i = 0, 100, 1 do
+        LoadBar.Size = UDim2.new(0.8 * (i/100), 0, 0, 4)
+        LoadTitle.Text = "LOADING " .. i .. "%"
+        task.wait(0.03)
     end
     LoadingFrame:Destroy()
     MainFrame.Visible = true
 end)
 
--- ================= MAIN GUI CONSTRUCTION =================
+-- ================= MAIN WINDOW =================
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 520, 0, 320)
-MainFrame.Position = UDim2.new(0.5, -260, 0.5, -160)
-MainFrame.BackgroundColor3 = CurrentTheme.Bg
-MainFrame.Visible = false
-MainFrame.Active = true
-MainFrame.Draggable = true
+MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
-Instance.new("UICorner", MainFrame)
+MainFrame.Size = UDim2.new(0, 550, 0, 350)
+MainFrame.Position = UDim2.new(0.5, -275, 0.5, -175)
+MainFrame.BackgroundColor3 = Theme.Main
+MainFrame.BorderSizePixel = 0
+MainFrame.Visible = false
+MainFrame.ClipsDescendants = true
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 12)
 
-local LeftPanel = Instance.new("Frame")
-LeftPanel.Size = UDim2.new(0, 130, 1, -40)
-LeftPanel.Position = UDim2.new(0, 10, 0, 35)
-LeftPanel.BackgroundColor3 = CurrentTheme.Panel
-LeftPanel.Parent = MainFrame
-Instance.new("UICorner", LeftPanel)
+-- Make Draggable
+local UserInputService = game:GetService("UserInputService")
+local dragging, dragInput, dragStart, startPos
+MainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true; dragStart = input.Position; startPos = MainFrame.Position
+    end
+end)
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local delta = input.Position - dragStart
+        MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
+end)
 
-local TopBar = Instance.new("Frame")
-TopBar.Size = UDim2.new(1, 0, 0, 30)
-TopBar.BackgroundTransparency = 1
-TopBar.Parent = MainFrame
-
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(0.5, 0, 1, 0)
-Title.Position = UDim2.new(0, 15, 0, 0)
-Title.Text = "FORSAKEN HUB | By Author"
-Title.TextColor3 = CurrentTheme.Text
-Title.TextXAlignment = Enum.TextXAlignment.Left
-Title.BackgroundTransparency = 1
-Title.Font = Enum.Font.SourceSansBold
-Title.Parent = TopBar
-
+-- TopBar & Buttons
 local CloseBtn = Instance.new("TextButton")
-CloseBtn.Text = "X"
+CloseBtn.Text = "×"
 CloseBtn.Size = UDim2.new(0, 30, 0, 30)
 CloseBtn.Position = UDim2.new(1, -35, 0, 5)
-CloseBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.TextColor3 = Theme.Text
+CloseBtn.BackgroundTransparency = 1
+CloseBtn.TextSize = 25
 CloseBtn.Parent = MainFrame
-Instance.new("UICorner", CloseBtn)
 
 local MiniBtn = Instance.new("TextButton")
-MiniBtn.Text = "-"
+MiniBtn.Text = "−"
 MiniBtn.Size = UDim2.new(0, 30, 0, 30)
-MiniBtn.Position = UDim2.new(1, -70, 0, 5)
-MiniBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-MiniBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+MiniBtn.Position = UDim2.new(1, -65, 0, 5)
+MiniBtn.TextColor3 = Theme.Text
+MiniBtn.BackgroundTransparency = 1
+MiniBtn.TextSize = 25
 MiniBtn.Parent = MainFrame
-Instance.new("UICorner", MiniBtn)
 
--- Mini GUI Icon
-local MiniIcon = Instance.new("ImageButton")
-MiniIcon.Size = UDim2.new(0, 60, 0, 60)
-MiniIcon.Position = UDim2.new(0, 20, 0.5, -30)
-MiniIcon.Image = "rbxassetid://15294026365" -- Con bò
-MiniIcon.Visible = false
-MiniIcon.BackgroundColor3 = CurrentTheme.Bg
-MiniIcon.Parent = ScreenGui
-Instance.new("UICorner", MiniIcon).CornerRadius = UDim.new(1,0)
+-- Left Panel
+local Sidebar = Instance.new("Frame")
+Sidebar.Size = UDim2.new(0, 150, 1, 0)
+Sidebar.BackgroundColor3 = Theme.Secondary
+Sidebar.Parent = MainFrame
+Instance.new("UICorner", Sidebar).CornerRadius = UDim.new(0, 12)
 
--- Content Frame
-local Container = Instance.new("ScrollingFrame")
-Container.Size = UDim2.new(0, 360, 0, 260)
-Container.Position = UDim2.new(0, 150, 0, 45)
+local SideList = Instance.new("UIListLayout")
+SideList.Parent = Sidebar
+SideList.Padding = UDim.new(0, 5)
+SideList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local SidebarPadding = Instance.new("UIPadding")
+SidebarPadding.Parent = Sidebar
+SidebarPadding.PaddingTop = UDim.new(0, 45)
+
+-- Content Area
+local Container = Instance.new("Frame")
+Container.Size = UDim2.new(1, -170, 1, -50)
+Container.Position = UDim2.new(0, 160, 0, 40)
 Container.BackgroundTransparency = 1
-Container.ScrollBarThickness = 4
 Container.Parent = MainFrame
 
-local UIStack = Instance.new("UIListLayout")
-UIStack.Parent = Container
-UIStack.Padding = UDim.new(0, 8)
+-- Mini Icon (Cow)
+local MiniIcon = Instance.new("ImageButton")
+MiniIcon.Size = UDim2.new(0, 60, 0, 60)
+MiniIcon.Position = UDim2.new(0, 20, 0, 20)
+MiniIcon.Image = "rbxassetid://15294026365"
+MiniIcon.BackgroundColor3 = Theme.Main
+MiniIcon.Visible = false
+MiniIcon.Parent = ScreenGui
+Instance.new("UICorner", MiniIcon).CornerRadius = UDim.new(1, 0)
 
--- ================= FUNCTIONS ĐỔI MÀU =================
-local function ApplyTheme(themeName)
-    local t = Themes[themeName]
-    CurrentTheme = t
-    MainFrame.BackgroundColor3 = t.Bg
-    LeftPanel.BackgroundColor3 = t.Panel
-    Title.TextColor3 = t.Text
-    MiniIcon.BackgroundColor3 = t.Bg
-    -- Cập nhật màu chữ cho các thành phần con
-    for _, v in pairs(MainFrame:GetDescendants()) do
-        if v:IsA("TextLabel") or v:IsA("TextButton") then
-            if v ~= CloseBtn and v ~= MiniBtn then
-                v.TextColor3 = t.Text
-            end
-        end
-    end
+-- ================= WIND UI COMPONENTS =================
+local function Clear()
+    for _, v in pairs(Container:GetChildren()) do if not v:IsA("UIListLayout") then v:Destroy() end end
 end
 
--- ================= UI ELEMENTS GENERATOR =================
-local function ClearContainer()
-    for _, v in pairs(Container:GetChildren()) do
-        if not v:IsA("UIListLayout") then v:Destroy() end
-    end
-end
-
-local function AddToggle(text)
+local function AddToggle(name)
     local TFrame = Instance.new("Frame")
-    TFrame.Size = UDim2.new(0.95, 0, 0, 35)
-    TFrame.BackgroundTransparency = 1
+    TFrame.Size = UDim2.new(1, 0, 0, 40)
+    TFrame.BackgroundColor3 = Theme.Secondary
     TFrame.Parent = Container
-    
+    Instance.new("UICorner", TFrame).CornerRadius = UDim.new(0, 8)
+
     local TText = Instance.new("TextLabel")
-    TText.Size = UDim2.new(0.7, 0, 1, 0)
-    TText.Text = text
-    TText.TextColor3 = CurrentTheme.Text
+    TText.Size = UDim2.new(0.6, 0, 1, 0)
+    TText.Position = UDim2.new(0.05, 0, 0, 0)
+    TText.Text = name
+    TText.TextColor3 = Theme.Text
     TText.BackgroundTransparency = 1
     TText.TextXAlignment = Enum.TextXAlignment.Left
+    TText.Font = Enum.Font.Gotham
     TText.Parent = TFrame
 
-    local TButton = Instance.new("TextButton")
-    TButton.Size = UDim2.new(0, 45, 0, 22)
-    TButton.Position = UDim2.new(0.8, 0, 0.2, 0)
-    TButton.BackgroundColor3 = CurrentTheme.Accent
-    TButton.Text = "ON"
-    TButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TButton.Parent = TFrame
-    Instance.new("UICorner", TButton)
+    local TBtn = Instance.new("TextButton")
+    TBtn.Size = UDim2.new(0, 40, 0, 20)
+    TBtn.Position = UDim2.new(0.85, 0, 0.25, 0)
+    TBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    TBtn.Text = ""
+    TBtn.Parent = TFrame
+    Instance.new("UICorner", TBtn).CornerRadius = UDim.new(1, 0)
+
+    local Dot = Instance.new("Frame")
+    Dot.Size = UDim2.new(0, 16, 0, 16)
+    Dot.Position = UDim2.new(0, 2, 0.5, -8)
+    Dot.BackgroundColor3 = Theme.White
+    Dot.Parent = TBtn
+    Instance.new("UICorner", Dot).CornerRadius = UDim.new(1, 0)
+
+    local state = false
+    TBtn.MouseButton1Click:Connect(function()
+        state = not state
+        TweenService:Create(TBtn, TweenInfo.new(0.3), {BackgroundColor3 = state and Theme.Accent or Color3.fromRGB(50, 50, 50)}):Play()
+        TweenService:Create(Dot, TweenInfo.new(0.3), {Position = state and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8)}):Play()
+    end)
 end
 
 -- ================= TAB SYSTEM =================
-local function CreateTab(name, iconId, callback, order)
-    local TBtn = Instance.new("TextButton")
-    TBtn.Size = UDim2.new(1, 0, 0, 40)
-    TBtn.BackgroundTransparency = 1
-    TBtn.Text = "  " .. name
-    TBtn.TextColor3 = CurrentTheme.Text
-    TBtn.TextXAlignment = Enum.TextXAlignment.Left
-    TBtn.LayoutOrder = order
-    TBtn.Parent = LeftPanel
+local function CreateTab(name, iconId, callback)
+    local Tab = Instance.new("TextButton")
+    Tab.Size = UDim2.new(0.9, 0, 0, 35)
+    Tab.BackgroundColor3 = Theme.Secondary
+    Tab.BackgroundTransparency = 1
+    Tab.Text = "    " .. name
+    Tab.TextColor3 = Theme.Text
+    Tab.TextXAlignment = Enum.TextXAlignment.Left
+    Tab.Font = Enum.Font.Gotham
+    Tab.Parent = Sidebar
 
     local Icon = Instance.new("ImageLabel")
-    Icon.Size = UDim2.new(0, 20, 0, 20)
-    Icon.Position = UDim2.new(0.8, 0, 0.25, 0)
+    Icon.Size = UDim2.new(0, 18, 0, 18)
+    Icon.Position = UDim2.new(0.05, 0, 0.5, -9)
     Icon.Image = "rbxassetid://" .. iconId
     Icon.BackgroundTransparency = 1
-    Icon.Parent = TBtn
+    Icon.Parent = Tab
 
-    TBtn.MouseButton1Click:Connect(callback)
+    Tab.MouseButton1Click:Connect(callback)
 end
 
--- Tab Info
+-- INFO TAB
 CreateTab("Info", "6023426926", function()
-    ClearContainer()
+    Clear()
     setclipboard("https://discord.gg/YQBhUfzY")
     local L = Instance.new("TextLabel", Container)
-    L.Size = UDim2.new(1, 0, 0, 100)
-    L.Text = "Chào mừng bro! Đây là script tôi làm ra.\n\nDiscord: https://discord.gg/YQBhUfzY\n(Link đã được copy!)"
-    L.TextColor3 = CurrentTheme.Text
+    L.Size = UDim2.new(1, 0, 1, 0)
+    L.Text = "Đây là script tôi làm ra, mong bạn chơi vui vẻ!\n\nDiscord: https://discord.gg/YQBhUfzY\n(Link đã tự động copy)"
+    L.TextColor3 = Theme.Text
     L.BackgroundTransparency = 1
     L.TextWrapped = true
-end, 1)
+    L.Font = Enum.Font.Gotham
+end)
 
--- Tab Farm
+-- FARM TAB
 CreateTab("Farm", "6035040600", function()
-    ClearContainer()
-    AddToggle("Auto Farm money")
-    AddToggle("Auto Collect item")
-end, 2)
+    Clear()
+    AddToggle("Auto Quest")
+    AddToggle("Auto Mob")
+    AddToggle("Auto Farm Chest")
+end)
 
--- Tab Setting (Chỉnh màu)
+-- SETTING TAB (Change Theme)
 CreateTab("Setting", "6031280793", function()
-    ClearContainer()
-    local Label = Instance.new("TextLabel", Container)
-    Label.Text = "CHỌN MÀU GUI:"
-    Label.TextColor3 = CurrentTheme.Text
-    Label.Size = UDim2.new(1, 0, 0, 30)
-    Label.BackgroundTransparency = 1
-
-    local function CreateColorBtn(name, themeKey)
-        local b = Instance.new("TextButton", Container)
-        b.Size = UDim2.new(0.9, 0, 0, 35)
-        b.Text = name
-        b.BackgroundColor3 = Themes[themeKey].Bg
-        b.TextColor3 = Color3.fromRGB(255, 255, 255)
-        Instance.new("UICorner", b)
-        b.MouseButton1Click:Connect(function() ApplyTheme(themeKey) end)
+    Clear()
+    local function ColorOpt(name, color, key)
+        local B = Instance.new("TextButton", Container)
+        B.Size = UDim2.new(1, 0, 0, 35)
+        B.BackgroundColor3 = color
+        B.Text = name
+        B.TextColor3 = Theme.White
+        B.Font = Enum.Font.GothamBold
+        Instance.new("UICorner", B)
+        B.MouseButton1Click:Connect(function()
+            Theme.Accent = color
+            if key == "White" then
+                 MainFrame.BackgroundColor3 = Theme.White
+                 Sidebar.BackgroundColor3 = Color3.fromRGB(230,230,230)
+                 Theme.Text = Color3.fromRGB(30,30,30)
+            else
+                 MainFrame.BackgroundColor3 = Theme.Main
+                 Sidebar.BackgroundColor3 = Theme.Secondary
+                 Theme.Text = Theme.White
+            end
+        end)
     end
+    ColorOpt("BLUE THEME", Color3.fromRGB(0, 150, 255), "Blue")
+    ColorOpt("GREEN THEME", Color3.fromRGB(0, 255, 120), "Green")
+    ColorOpt("WHITE MODE", Color3.fromRGB(200, 200, 200), "White")
+    ColorOpt("DARK MODE", Color3.fromRGB(30, 30, 30), "Dark")
+end)
 
-    CreateColorBtn("TRẮNG (White Mode)", "White")
-    CreateColorBtn("XANH DƯƠNG (Blue Sea)", "Blue")
-    CreateColorBtn("XANH LÁ (Matrix)", "Green")
-    CreateColorBtn("ĐEN (Mặc định)", "Black")
-end, 5)
+-- Tab Main & Misc
+CreateTab("Main", "6034289542", function() Clear() AddToggle("Infinite Jump") AddToggle("No Clip") end)
+CreateTab("Misc", "6031764658", function() Clear() AddToggle("FPS Boost") AddToggle("Anti AFK") end)
 
--- Main & Misc (Tương tự...)
-CreateTab("Main", "6034289542", function() ClearContainer() AddToggle("Speed Hack") end, 3)
-CreateTab("Misc", "6031764658", function() ClearContainer() AddToggle("Anti AFK") end, 4)
+local Layout = Instance.new("UIListLayout", Container)
+Layout.Padding = UDim.new(0, 8)
 
--- Nút điều khiển
+-- Controls
 CloseBtn.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
 MiniBtn.MouseButton1Click:Connect(function() MainFrame.Visible = false MiniIcon.Visible = true end)
 MiniIcon.MouseButton1Click:Connect(function() MainFrame.Visible = true MiniIcon.Visible = false end)
 
--- Mở mặc định Tab Info
-ApplyTheme("Black")
