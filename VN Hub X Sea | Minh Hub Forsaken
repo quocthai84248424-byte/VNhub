@@ -2,7 +2,7 @@ local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/rel
 
 local Window = WindUI:CreateWindow({
     Title = "VN Hub and Sea | Minh Hub - Forsaken",
-    Icon = "rbxassetid://84155435407343",
+    Icon = "rbxassetid://112407097340606",
     Author = "By ⟦ 春秋禪 ⟧ https://discord.gg/YQBhUfzY and Sea | Minh https://discord.gg/nHnsJF9TbN",
     Folder = "huyenvutongforsaken",
     
