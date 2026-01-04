@@ -6,7 +6,7 @@ local Window = WindUI:CreateWindow({
     Author = "By ⟦ 春秋禪 ⟧ https://discord.gg/YQBhUfzY and Sea | Minh https://discord.gg/nHnsJF9TbN",
     Folder = "huyenvutongforsaken",
     
-    Size = UDim2.fromOffset(580, 460),
+    Size = UDim2.fromOffset(780, 660),
     MinSize = Vector2.new(560, 350),
     MaxSize = Vector2.new(850, 560),
     Transparent = true,
@@ -56,7 +56,3 @@ TabInfo:Paragraph({
     Title = "Đây là script tôi làm ra, mong bạn chơi vui vẻ!",
     Description = "vui"
 })
-
-
-
-
