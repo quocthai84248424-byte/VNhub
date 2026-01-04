@@ -3,7 +3,7 @@ local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/rel
 local Window = WindUI:CreateWindow({
     Title = "Huyền Vũ Tông - Forsaken",
     Icon = "rbxassetid://84155435407343",
-    Author = "BY ⟦ 春秋禪 ⟧ https://discord.gg/YQBhUfzY",
+    Author = "By ⟦ 春秋禪 ⟧ https://discord.gg/YQBhUfzY",
     Folder = "huyenvutongforsaken",
     
     Size = UDim2.fromOffset(580, 460),
