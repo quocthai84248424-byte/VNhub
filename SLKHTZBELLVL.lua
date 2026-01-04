@@ -1,11 +1,11 @@
 --[[
-    AUTHOR: [Tên Tác Giả]
+    AUTHOR: [ilovedog(hieuzed05]
     GAME: Forsaken
     FEATURES: Loading 0-100%, Multi-Tabs, Auto-Copy, Theme Changer, UI Elements
 ]]
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "ForsakenV3"
+ScreenGui.Name = "skibidihub-beta"
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ResetOnSpawn = false
 
@@ -225,8 +225,8 @@ end, 1)
 -- Tab Farm
 CreateTab("Farm", "6035040600", function()
     ClearContainer()
-    AddToggle("Auto Farm Level")
-    AddToggle("Auto Collect Items")
+    AddToggle("Auto Farm money")
+    AddToggle("Auto Collect item")
 end, 2)
 
 -- Tab Setting (Chỉnh màu)
