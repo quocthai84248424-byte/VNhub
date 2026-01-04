@@ -1,5 +1,7 @@
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
+local Discord = https://discord.gg/YQBhUfzY
+
 local Window = WindUI:CreateWindow({
     Title = "Huyền Vũ Tông - Forsaken",
     Icon = "rbxassetid://84155435407343",
