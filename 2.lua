@@ -18,6 +18,20 @@ local Window = WindUI:CreateWindow({
     ScrollBarEnabled = false,
 })
 
+Window:EditOpenButton({
+    Title = "Open Huyền Vũ Tông UI",
+    Icon = "monitor",
+    CornerRadius = UDim.new(0,16),
+    StrokeThickness = 2,
+    Color = ColorSequence.new( -- gradient
+        Color3.fromHex("FF0F7B"), 
+        Color3.fromHex("F89B29")
+    ),
+    OnlyMobile = false,
+    Enabled = true,
+    Draggable = true,
+})
+
 local TabInfo = Window:Tab({ Title = "Info", Icon = "info" })
 
 TabInfo:Button({
@@ -33,3 +47,5 @@ TabInfo:Paragraph({
     Title = "Đây là script tôi làm ra, mong bạn chơi vui vẻ!",
     Description = "vui"
 })
+
+
