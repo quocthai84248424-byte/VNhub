@@ -1,11 +1,9 @@
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
-local Discord = https://discord.gg/YQBhUfzY
-
 local Window = WindUI:CreateWindow({
-    Title = "Huyền Vũ Tông - Forsaken",
+    Title = "VN Hub and Sea | Minh Hub - Forsaken",
     Icon = "rbxassetid://84155435407343",
-    Author = "By ⟦ 春秋禪 ⟧ https://discord.gg/YQBhUfzY",
+    Author = "By ⟦ 春秋禪 ⟧ https://discord.gg/YQBhUfzY and Sea | Minh https://discord.gg/nHnsJF9TbN",
     Folder = "huyenvutongforsaken",
     
     Size = UDim2.fromOffset(580, 460),
@@ -37,10 +35,19 @@ Window:EditOpenButton({
 local TabInfo = Window:Tab({ Title = "Info", Icon = "info" })
 
 TabInfo:Button({
-    Title = "Copy Discord Link",
+    Title = "Copy Discord Link VN Hub",
     Description = "Copy link Discord",
     Callback = function()
         setclipboard("https://discord.gg/YQBhUfzY")
+        Notify("Info", "Đã copy link Discord!")
+    end
+})
+
+TabInfo:Button({
+    Title = "Copy Discord Link Sea | Minh Hub",
+    Description = "Copy link Discord",
+    Callback = function()
+        setclipboard("https://discord.gg/nHnsJF9TbN")
         Notify("Info", "Đã copy link Discord!")
     end
 })
@@ -49,5 +56,7 @@ TabInfo:Paragraph({
     Title = "Đây là script tôi làm ra, mong bạn chơi vui vẻ!",
     Description = "vui"
 })
+
+
 
 
