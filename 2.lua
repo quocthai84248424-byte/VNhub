@@ -4,7 +4,7 @@ local Window = WindUI:CreateWindow({
     Title = "Huyền Vũ Tông - Forsaken",
     Icon = "rbxassetid://84155435407343", -- lucide icon
     Author = "BY ⟦ 春秋禪 ⟧ https://discord.gg/YQBhUfzY",
-    Folder = "MySuperHub",
+    Folder = "huyenvutongforsaken",
     
     Size = UDim2.fromOffset(580, 460),
     MinSize = Vector2.new(560, 350),
@@ -16,4 +16,20 @@ local Window = WindUI:CreateWindow({
     BackgroundImageTransparency = 0.42,
     HideSearchBar = true,
     ScrollBarEnabled = false,
+})
+
+local TabInfo = Window:Tab({ Title = "Info", Icon = "info" })
+
+TabInfo:Button({
+    Title = "Copy Discord Link",
+    Description = "Copy link Discord",
+    Callback = function()
+        setclipboard("https://discord.gg/YQBhUfzY")
+        Notify("Info", "Đã copy link Discord!")
+    end
+})
+
+TabInfo:Paragraph({
+    Title = "Script này hỗ trợ auto farm cho cả Killer và Survivor. Bật các tính năng bạn cần và tận hưởng!",
+    Description = "Script này hỗ trợ auto farm cho cả Killer và Survivor. Bật các tính năng bạn cần và tận hưởng!"
 })
