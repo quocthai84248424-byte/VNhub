@@ -30,6 +30,6 @@ TabInfo:Button({
 })
 
 TabInfo:Paragraph({
-    Title = "Script này hỗ trợ auto farm cho cả Killer và Survivor. Bật các tính năng bạn cần và tận hưởng!",
-    Description = "Script này hỗ trợ auto farm cho cả Killer và Survivor. Bật các tính năng bạn cần và tận hưởng!"
+    Title = "Đây là script tôi làm ra, mong bạn chơi vui vẻ!",
+    Description = "vui"
 })
