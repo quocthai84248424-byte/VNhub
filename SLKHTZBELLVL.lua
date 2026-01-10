@@ -2,7 +2,7 @@
 -- [[          SEA | MINH HUB  X  VNHUB              ]]
 -- [[ ============================================== ]]
 
--- 1. Load thư viện WindUI
+-- 1. Load thư viện WindUI (Chú ý dấu ngoặc ở đây)
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/main.lua"))()
 
 local function InitMainGUI()
@@ -76,4 +76,5 @@ local function InitMainGUI()
     end
 end
 
+-- Chạy hàm khởi tạo
 task.spawn(InitMainGUI)
