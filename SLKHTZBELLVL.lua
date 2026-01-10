@@ -2,7 +2,6 @@
 -- [[          SEA | MINH HUB  X  VNHUB              ]]
 -- [[ ============================================== ]]
 
--- 1. Load thư viện WindUI (Chú ý dấu ngoặc ở đây)
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/main.lua"))()
 
 local function InitMainGUI()
@@ -18,7 +17,7 @@ local function InitMainGUI()
             Author = "By ⟦ 春秋禪 ⟧ & Sea | Minh",
             Folder = "huyenvutongforsaken",
             Size = UDim2.fromOffset(580, 420),
-            Theme = "Dark",
+            Theme = "Dark", 
             Draggable = true,
             AccentColor = TabIconColor 
         })
@@ -34,13 +33,8 @@ local function InitMainGUI()
         TabInfo:Paragraph({ Title = "SEA | MINH HUB X VNHUB", Description = "Discord: https://discord.gg/YQBhUfzY" })
 
         local TabFarm = Window:Tab({ Title = "Farm", Icon = "coins" })
-        TabFarm:Paragraph({ Title = "| Killer Farm |", Description = "" })
         TabFarm:Toggle({ Title = "Auto Kill Survivor (Teleport)", Callback = function(s) if s then WindUI:Notify("SEA | MINH HUB", "[SẮP CẬP NHẬT 🤓]", 3) end end })
-        TabFarm:Separator()
-        TabFarm:Paragraph({ Title = "| Survivor Farm |", Description = "" })
         TabFarm:Toggle({ Title = "Auto Fix Gen (Teleport)", Callback = function(s) if s then WindUI:Notify("SEA | MINH HUB", "[SẮP CẬP NHẬT 🤓]", 3) end end })
-        TabFarm:Toggle({ Title = "Generator Repair (Solve Puzzle)", Callback = function(s) if s then WindUI:Notify("SEA | MINH HUB", "[SẮP CẬP NHẬT 🤓]", 3) end end })
-        TabFarm:Input({ Title = "Delay", Default = "1.5", Callback = function(t) RepairDelay = tonumber(t) or 1.5 end })
 
         local TabMain = Window:Tab({ Title = "Main", Icon = "house" })
         TabMain:Toggle({
@@ -68,7 +62,7 @@ local function InitMainGUI()
         local TabSet = Window:Tab({ Title = "Settings", Icon = "settings" })
         TabSet:Dropdown({ Title = "Theme", Options = {"Dark", "Light", "Aqua"}, Callback = function(t) Window:SetTheme(t) end })
 
-        WindUI:Notify("SEA | MINH HUB", "Shedletsky Edition Ready!", 5)
+         WindUI:Notify("SEA | MINH HUB", "Shedletsky Edition Ready!", 5)
     end)
 
     if not success then
@@ -76,5 +70,4 @@ local function InitMainGUI()
     end
 end
 
--- Chạy hàm khởi tạo
 task.spawn(InitMainGUI)
